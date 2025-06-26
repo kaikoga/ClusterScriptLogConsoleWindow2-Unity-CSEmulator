@@ -1,0 +1,25 @@
+{
+    "name": "Silksprite.ClusterScriptLogConsoleWindow2.Interop.CSEmulator",
+    "rootNamespace": "",
+    "references": [
+        "ClusterVR.CreatorKit.Item",
+        "ClusterVR.CreatorKit.Item.Implements",
+        "KaomoLab.CSEmulator",
+        "KaomoLab.CSEmulator.Components",
+        "KaomoLab.CSEmulator.Editor",
+        "KaomoLab.CSEmulator.Editor.Engine",
+        "KaomoLab.CSEmulator.Editor.EmulateClasses",
+        "Silksprite.ClusterScriptLogConsoleWindow2.Format"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
