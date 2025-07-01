@@ -45,7 +45,7 @@ namespace Silksprite.ClusterScriptLogConsoleWindow2.Interop.CSEmulator
                 },
                 type = type,
                 message = message,
-                kind = null,
+                kind = GuessKind(message),
                 pos = ParseProgramPosition(),
                 stack = ParseProgramStack()
             });
@@ -87,6 +87,11 @@ namespace Silksprite.ClusterScriptLogConsoleWindow2.Interop.CSEmulator
                     Error($"Exception at {_programStatus.GetLineInfo()} {e}");
                     break;
             }
+        }
+
+        string GuessKind(string message)
+        {
+            return message.StartsWith("[PlayerScript]") ? "PlayerScript" : "ScriptableItem";
         }
 
         int[] ParseProgramPosition()
