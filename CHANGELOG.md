@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-07-14
+
+### Fixed
+
+- Take account of stack trace stored in JavaScript error object
+
 ## [0.2.0] - 2025-07-01
 
 ### Added

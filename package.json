@@ -1,15 +1,15 @@
 {
   "name": "net.kaikoga.cslcw2.interop.csemulator",
-  "url": "https://vpm.kaikoga.net/millenium/net.kaikoga.cslcw2.interop.csemulator/net.kaikoga.cslcw2.interop.csemulator-0.1.0.zip",
+  "url": "https://vpm.kaikoga.net/millenium/net.kaikoga.cslcw2.interop.csemulator/net.kaikoga.cslcw2.interop.csemulator-0.3.0.zip",
   "displayName": "ClusterScript Log Console Window 2 Interop: CSEmulator",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "unity": "2021.3",
   "description": "ClusterScript Log Console Window 2 support for CSEmulator",
   "dependencies": {
     "mu.cluster.cluster-creator-kit": "2.0.0"
   },
   "vpmDependencies": {
-    "net.kaikoga.cslcw2": "1.1.0"
+    "net.kaikoga.cslcw2": "1.2.0"
   },
   "author": {
     "name": "kaikoga",

@@ -24,7 +24,7 @@ namespace Silksprite.ClusterScriptLogConsoleWindow2.Interop.CSEmulator
             _item = gameObject.GetComponent<Item>();
         }
 
-        void Log(string type, string message)
+        void Log(string type, string message, int[] pos = null, OutputStackItemExt[] stack = null)
         {
             var (itemId, itemName) = _item != null ? (_item.Id.Value, ((IItem)_item).ItemName) : (0L, "");
             var (userId, userName) = _playerMeta != null ? (_playerMeta.userId, _playerMeta.userDisplayName) : ("", "");
@@ -45,9 +45,9 @@ namespace Silksprite.ClusterScriptLogConsoleWindow2.Interop.CSEmulator
                 },
                 type = type,
                 message = message,
-                kind = GuessKind(message),
-                pos = ParseProgramPosition(),
-                stack = ParseProgramStack()
+                kind = GuessKind(itemName, message),
+                pos = pos ?? ParseProgramPosition(),
+                stack = stack ?? ParseProgramStack()
             });
         }
 
@@ -66,45 +66,63 @@ namespace Silksprite.ClusterScriptLogConsoleWindow2.Interop.CSEmulator
             Log("PreviewLog_Error", message);
         }
 
+        void Error(string message, int[] pos, OutputStackItemExt[] stack)
+        {
+            Log("PreviewLog_Error", message, pos, stack);
+        }
+
         public void Exception(JsError e)
         {
             var ps = e.GetOwnProperties()
                 .ToDictionary(kv => kv.Key.ToString(), kv => kv.Value.Value.ToString());
-            Error($"JavaScript error at {_programStatus.GetLineInfo()} {ps["message"]}\n{ps["stack"]}");
+            var lineInfo = _programStatus.GetLineInfo();
+            Error($"JavaScript error at {lineInfo} {ps["message"]}",
+                ParseProgramPosition(lineInfo),
+                ParseProgramStack(ps["stack"]));
         }
 
         public void Exception(Exception e)
         {
+            var lineInfo = _programStatus.GetLineInfo();
             switch (e)
             {
-                case Jint.Runtime.JavaScriptException jse:
-                    Error($"JavaScript error at {_programStatus.GetLineInfo()} {jse.Message}\n{jse.JavaScriptStackTrace}");
+                case Jint.Runtime.JavaScriptException jse:{}
+                    Error($"JavaScript error at {lineInfo} {jse.Message}",
+                        ParseProgramPosition(lineInfo),
+                        ParseProgramStack(jse.JavaScriptStackTrace));
                     break;
                 case { InnerException: Jint.Runtime.JavaScriptException jse } _:
-                    Error($"JavaScript error at {_programStatus.GetLineInfo()} {jse.Message}\n{jse.JavaScriptStackTrace}");
+                    Error($"JavaScript error at {lineInfo} {jse.Message}",
+                        ParseProgramPosition(lineInfo),
+                        ParseProgramStack(jse.JavaScriptStackTrace));
                     break;
                 default:
-                    Error($"Exception at {_programStatus.GetLineInfo()} {e}");
+                    Error($"Exception at {lineInfo} {e}");
                     break;
             }
         }
 
-        string GuessKind(string message)
+        static string GuessKind(string itemName, string message) =>
+            (itemName, message) switch
+            {
+                // XXX This does not work
+                ("PlayerScript", _) => "PlayerScript",
+                var (_, m) when m.StartsWith("PlayerScript") => "PlayerScript",
+                _ => "ItemScript"
+            };
+
+        int[] ParseProgramPosition(string lineInfo = null)
         {
-            return message.StartsWith("[PlayerScript]") ? "PlayerScript" : "ScriptableItem";
+            var parsedInfo = (lineInfo ?? _programStatus.GetLineInfo()).Split(":");
+            return parsedInfo.Length < 2 ? null : new [] { int.Parse(parsedInfo[0]), int.Parse(parsedInfo[1]) + 1 };
         }
 
-        int[] ParseProgramPosition()
-        {
-            var lineInfo = _programStatus.GetLineInfo().Split(":");
-            return lineInfo.Length < 2 ? null : new [] { int.Parse(lineInfo[0]), int.Parse(lineInfo[1]) + 1 };
-        }
-
-        OutputStackItemExt[] ParseProgramStack()
+        OutputStackItemExt[] ParseProgramStack(string stack = null)
         {
             try
             {
-                return _programStatus.GetStack().Split("\n")
+                stack ??= _programStatus.GetStack();
+                return stack.Split("\n")
                     .Select(line =>
                     {
                         var stackInfo = line.Split(":");
