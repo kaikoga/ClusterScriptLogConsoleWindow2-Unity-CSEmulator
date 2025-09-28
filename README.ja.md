@@ -7,6 +7,7 @@
 ## インストール方法
 
 - ClusterScript Log Console Window 2 をインストールする
+- CSEmulator 2.86 以上をインストールする
 - manifest.json に追記する
 
 ```json
@@ -16,11 +17,6 @@
   }
 }
 ```
-
-- CSEmulator 2.82 以上をインストールする
-- `Assets/KaomoLab/CSEmulator/Editor/Preview/EngineFacade.cs` 内の `DebugLogFactory` って書いてある場所を `Silksprite.ClusterScriptLogConsoleWindow2.Interop.CSEmulator.ScriptableItemLogExtLoggerFactory` に書き換える
-- `DebugLogFactory` に `optionBridge.raw` を渡す代わりに `optionBridge` を渡す
-- `Assets/KaomoLab/CSEmulator/Editor/Preview/KaomoLab.CSEmulator.Editor.Preview.asmdef` の `"references"` に `"Silksprite.ClusterScriptLogConsoleWindow2.Interop.CSEmulator"` を足す
 
 ## 使用方法
 

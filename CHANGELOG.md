@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.4.0] - 2025-09-30
+
+### Changed
+
+- Major breaking: Requires CSEmulator 2.86 or over 
+
 ## [0.3.0] - 2025-07-14
 
 ### Fixed
