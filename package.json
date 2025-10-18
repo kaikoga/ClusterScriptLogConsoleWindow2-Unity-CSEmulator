@@ -2,7 +2,7 @@
   "name": "net.kaikoga.cslcw2.interop.csemulator",
   "url": "https://vpm.kaikoga.net/millenium/net.kaikoga.cslcw2.interop.csemulator/net.kaikoga.cslcw2.interop.csemulator-0.3.0.zip",
   "displayName": "ClusterScript Log Console Window 2 Interop: CSEmulator",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "unity": "2021.3",
   "description": "ClusterScript Log Console Window 2 support for CSEmulator",
   "dependencies": {

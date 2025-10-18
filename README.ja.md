@@ -2,7 +2,7 @@
 
 ## これは何ですか？
 
-- CSEmulator から ClusterScript Log Console Window 2 にログ出力するサンプルです  
+- CSEmulator から ClusterScript Log Console Window 2 にログ出力する拡張です
 
 ## インストール方法
 
