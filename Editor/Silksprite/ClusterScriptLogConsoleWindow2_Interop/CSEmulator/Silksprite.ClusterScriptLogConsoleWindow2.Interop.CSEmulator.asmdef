@@ -3,11 +3,7 @@
     "rootNamespace": "Silksprite.ClusterScriptLogConsoleWindow2.Interop.CSEmulator",
     "references": [
         "ClusterVR.CreatorKit.Item",
-        "KaomoLab.CSEmulator",
         "KaomoLab.CSEmulator.Components",
-        "KaomoLab.CSEmulator.Editor.EmulateClasses",
-        "KaomoLab.CSEmulator.Editor.Engine",
-        "KaomoLab.CSEmulator.Editor.Preview",
         "Silksprite.ClusterScriptLogConsoleWindow2.Format"
     ],
     "includePlatforms": [
